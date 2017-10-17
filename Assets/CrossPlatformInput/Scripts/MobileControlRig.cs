@@ -16,13 +16,12 @@ namespace UnityStandardAssets.CrossPlatformInput
         // This define is set or unset by a menu item that is included with
         // the Cross Platform Input package.
 
-
 #if !UNITY_EDITOR
 	void OnEnable()
 	{
 		CheckEnableControlRig();
 	}
-#endif
+	#endif
 
         private void Start()
         {
@@ -46,15 +45,15 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         private void OnEnable()
         {
-            EditorApplication.update += Update;
             EditorUserBuildSettings.activeBuildTargetChanged += Update;
+            EditorApplication.update += Update;
         }
 
 
         private void OnDisable()
         {
-            EditorApplication.update -= Update;
             EditorUserBuildSettings.activeBuildTargetChanged -= Update;
+            EditorApplication.update -= Update;
         }
 
 
