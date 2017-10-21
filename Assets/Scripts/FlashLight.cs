@@ -14,10 +14,10 @@ public class FlashLight : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            Color valo1 = new Color(255f,255f,0f,255f);
-            Color valo2 = new Color(255f, 0f, 0f,255f);
-            Color valo3 = new Color(0f, 0f, 255f,255f);
-            Color valo4 = new Color(0f, 255f, 0f,255f);
+            Color valo1 = new Color(255f,255f,10f,255f);
+            Color valo2 = new Color(255f, 10f, 10f,255f);
+            Color valo3 = new Color(10f, 10f, 255f,255f);
+            Color valo4 = new Color(10f, 255f, 10f,255f);
             if (light.color == valo1){
                 light.color = valo2;
             }

@@ -1,0 +1,52 @@
+Mono path[0] = 'D:/github/escaper/escaper.developement_Data/Managed'
+Mono path[1] = 'D:/github/escaper/escaper.developement_Data/Mono'
+Mono config path = 'D:/github/escaper/escaper.developement_Data/Mono/etc'
+PlayerConnection initialized from D:/github/escaper/escaper.developement_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55470
+Multi-casting "[IP] 192.168.1.104 [Port] 55470 [Flags] 2 [Guid] 386032583 [EditorId] 1810558134 [Version] 1048832 [Id] WindowsPlayer(DESKTOP-VQHE0CB) [Debug] 0" to [225.0.0.222:54997]...
+Started listening to [0.0.0.0:55470]
+PlayerConnection already initialized - listening to [0.0.0.0:55470]
+Player data archive not found at `D:/github/escaper/escaper.developement_Data/data.unity3d`, using local filesystemInitialize engine version: 5.6.4f1 (ac7086b8d112)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 750 Ti (ID=0x1380)
+    Vendor:   NVIDIA
+    VRAM:     2016 MB
+    Driver:   23.21.13.8792
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\github\escaper\escaper.developement_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\github\escaper\escaper.developement_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\github\escaper\escaper.developement_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading D:\github\escaper\escaper.developement_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: D:\github\escaper\escaper.developement_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\github\escaper\escaper.developement_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\github\escaper\escaper.developement_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\github\escaper\escaper.developement_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\github\escaper\escaper.developement_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\github\escaper\escaper.developement_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\github\escaper\escaper.developement_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading D:\github\escaper\escaper.developement_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.019 seconds
+Platform assembly: D:\github\escaper\escaper.developement_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\github\escaper\escaper.developement_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+The tree Rock1B must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+ 
+(Filename: C:/buildslave/unity/build/Runtime/Terrain/TreeDatabase.cpp Line: 140)
+
+UnloadTime: 2.633922 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 21.226261 ms
+System memory in use before: 67.1 MB.
+System memory in use after: 67.0 MB.
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 557.
+Total: 0.447360 ms (FindLiveObjects: 0.035840 ms CreateObjectMapping: 0.021120 ms MarkObjects: 0.187840 ms  DeleteObjects: 0.201600 ms)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: d90 -> priority: 1 
+  Thread -> id: b54 -> priority: 1 
