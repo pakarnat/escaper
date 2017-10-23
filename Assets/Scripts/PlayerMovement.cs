@@ -3,45 +3,129 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    float yRotation;
-    float xRotation;
-    float lookSensitivity = 5;
-    float currentXRotation;
-    float currentYRotation;
-    float yRotationV;
-    float xRotationV;
-    float lookSmoothnes = 0.1f;
 
-    public float walkSpeed = 6.0F;
-    public float jumpSpeed = 8.0F;
-    public float runSpeed = 8.0F;
-    public float gravity = 20.0F;
+    private bool inventoryOpen, playerJumped;
+    public float speed = 6f;
+    private float ogSpeed;
+    public float sens = 4f;
+    CharacterController player;
 
-    private Vector3 moveDirection = Vector3.zero;
-    private CharacterController controller;
+    public GameObject eyes;
 
-    void Start()
-    {
-        controller = GetComponent<CharacterController>();
+    private float moveFB; // FrontBack
+    private float moveLR; // LeftRight
+
+    private float rotX, rotY; // hiiren akselit
+
+    private float vertVelocity;
+    public float jumpVelocity = 20f;
+
+    // Use this for initialization
+    void Start () {
+
+        player = GetComponent<CharacterController>();
+        Cursor.visible = false;
+
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+        Movement();
+
+        KeyController();
+        Gravity();
     }
 
-    void Update()
+    private void Movement()
     {
-        if (controller.isGrounded)
+        moveFB = Input.GetAxis("Vertical") * speed;
+        moveLR = Input.GetAxis("Horizontal") * speed;
+
+        rotX = Input.GetAxis("Mouse X") * sens;
+        rotY -= Input.GetAxis("Mouse Y") * sens;
+        rotY = Mathf.Clamp(rotY, -60f, 60f);
+
+        Vector3 movement = new Vector3(moveLR, vertVelocity, moveFB);
+
+        transform.Rotate(0, rotX, 0);
+
+        // eyes.transform.Rotate(-rotY, 0, 0);
+        eyes.transform.localRotation = Quaternion.Euler(rotY, 0, 0);
+
+        movement = transform.rotation * movement;
+
+        player.Move(movement * Time.deltaTime);
+
+    }
+
+    private void KeyController()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= walkSpeed;
-            if (Input.GetButton("Jump"))
-                moveDirection.y = jumpSpeed;
+            ogSpeed = speed;
+            speed = 40f;
         }
-        moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
-        yRotation += Input.GetAxis("Mouse X") * lookSensitivity;
-        xRotation -= Input.GetAxis("Mouse Y") * lookSensitivity;
-        xRotation = Mathf.Clamp(xRotation, -80, 100);
-        currentXRotation = Mathf.SmoothDamp(currentXRotation, xRotation, ref xRotationV, lookSmoothnes);
-        currentYRotation = Mathf.SmoothDamp(currentYRotation, yRotation, ref yRotationV, lookSmoothnes);
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speed = ogSpeed;
+        }
+        // if (Input.GetKeyDown("space"))
+        if (Input.GetButton("Jump"))
+        {
+            Jump();
+        }
+
+        if (Input.GetKeyDown("e"))
+        {
+            // Jos tavaran voi poimia, poimitaan tavara. Muuten ei tehdä mitään
+            Debug.Log("Picks up item");
+        }
+        if (Input.GetKeyDown("i")) // INVENTORY
+        {
+            InventoryManagement();
+        }
+
+    }
+
+    private void InventoryManagement()
+    {
+        inventoryOpen = true; // lopetetaan hiirellä kameran ohjaus ja tuodaan kursori tavaroiden käsittelyä varten
+                              // Tähän inventoryn käsittely ja lopussa inventoryOpen = false;
+                              // Kimmo jatkaa, ei taidot riitä
+
+        if (inventoryOpen == true)
+        {
+            Cursor.visible = true;
+
+        }
+
+    }
+
+    private void Jump()
+    {
+        playerJumped = true;
+    }
+
+    private void Gravity()
+    {
+        if (player.isGrounded == true)
+        {
+            if (playerJumped == false)
+            {
+                vertVelocity = Physics.gravity.y;
+            }
+            else
+            {
+                vertVelocity = jumpVelocity;
+            }
+
+        }
+        else
+        {
+            vertVelocity += Physics.gravity.y * Time.deltaTime;
+            vertVelocity = Mathf.Clamp(vertVelocity, -50f, jumpVelocity);
+            playerJumped = false;
+        }
     }
 }
