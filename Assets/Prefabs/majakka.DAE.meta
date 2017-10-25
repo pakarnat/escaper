@@ -1,16 +1,32 @@
 fileFormatVersion: 2
-guid: 0ee859ded5f17c14cbbb05010b9f83a8
-timeCreated: 1508931453
+guid: 6a21b414cdf7f8248a03c85d3c7b907a
+timeCreated: 1508933347
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Bridge
-    7400000: Default Take
+    100000: base01
+    100002: col-1
+    100004: collision-1
+    100006: detail200
+    100008: EnvironmentAmbientLight
+    100010: //RootNode
+    100012: SplitRock200
+    100014: start01
+    400000: base01
+    400002: col-1
+    400004: collision-1
+    400006: detail200
+    400008: EnvironmentAmbientLight
+    400010: //RootNode
+    400012: SplitRock200
+    400014: start01
+    2300000: collision-1
+    2300002: SplitRock200
+    3300000: collision-1
+    3300002: SplitRock200
+    4300000: SplitRock200
+    4300002: collision-1
     9500000: //RootNode
   materials:
     importMaterials: 1
