@@ -1,33 +1,17 @@
 fileFormatVersion: 2
-guid: 6a21b414cdf7f8248a03c85d3c7b907a
-timeCreated: 1508933347
+guid: 7a5cf57f01246e047aba91fb3fecb538
+timeCreated: 1508941733
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: base01
-    100002: col-1
-    100004: collision-1
-    100006: detail200
-    100008: EnvironmentAmbientLight
-    100010: //RootNode
-    100012: SplitRock200
-    100014: start01
-    400000: base01
-    400002: col-1
-    400004: collision-1
-    400006: detail200
-    400008: EnvironmentAmbientLight
-    400010: //RootNode
-    400012: SplitRock200
-    400014: start01
-    2300000: collision-1
-    2300002: SplitRock200
-    3300000: collision-1
-    3300002: SplitRock200
-    4300000: SplitRock200
-    4300002: collision-1
-    9500000: //RootNode
+    100000: //RootNode
+    100002: default
+    400000: //RootNode
+    400002: default
+    2300000: default
+    3300000: default
+    4300000: default
   materials:
     importMaterials: 1
     materialName: 0
@@ -92,7 +76,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
