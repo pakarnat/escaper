@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+    [SerializeField]
+    private InventoryDetails _inventoryDetails;
+    [SerializeField]
+    private Canvas UI;
+    private InventoryUIController _InvControl;
+
+
     private bool inventoryOpen, playerJumped;
     public float speed = 6f;
     private float ogSpeed;
     public float sens = 4f;
-    CharacterController player;
+    CharacterController player;    
 
     public GameObject eyes;
+    Vector3 rayForward;
+    RaycastHit hit;
+    float rayDistance;
+    int layerMask;
+
+    public Transform rightHand;
 
     private float moveFB; // FrontBack
     private float moveLR; // LeftRight
@@ -23,18 +36,23 @@ public class PlayerMovement : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        player = GetComponent<CharacterController>();
-        Cursor.visible = false;
+        _InvControl = UI.GetComponent<InventoryUIController>();
+        player = GetComponent<CharacterController>();        
+        Cursor.visible = false;        
+    }    
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 
-        Movement();
+        layerMask = LayerMask.GetMask("Item");
+        if (inventoryOpen == false)
+        {                        
+            Movement();
+            Raycast();
+        }
 
         KeyController();
-        Gravity();
+        Gravity();                
     }
 
     private void Movement()
@@ -52,7 +70,7 @@ public class PlayerMovement : MonoBehaviour {
 
         // eyes.transform.Rotate(-rotY, 0, 0);
         eyes.transform.localRotation = Quaternion.Euler(rotY, 0, 0);
-
+        
         movement = transform.rotation * movement;
 
         player.Move(movement * Time.deltaTime);
@@ -78,29 +96,31 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetKeyDown("e"))
         {
-            // Jos tavaran voi poimia, poimitaan tavara. Muuten ei tehdä mitään
-            Debug.Log("Picks up item");
+            rayForward = eyes.transform.TransformDirection(Vector3.forward) * 10;
+            if (Physics.Raycast(eyes.transform.position, rayForward, out hit, 10, layerMask))
+            {
+                Item item = hit.collider.gameObject.GetComponent<Item>();
+                _inventoryDetails.InventoryItems.Add(item);                
+                Destroy(hit.collider.gameObject);                
+            }
+            
         }
-        if (Input.GetKeyDown("i")) // INVENTORY
+        if (Input.GetButtonDown("Inventory")) // INVENTORY
         {
-            InventoryManagement();
+            if (inventoryOpen == false)
+            {
+                Cursor.visible = true;
+                inventoryOpen = true;
+            }
+            else
+            {
+                Cursor.visible = false;
+                inventoryOpen = false;
+            }
+            _InvControl.ShowInventory();
         }
 
-    }
-
-    private void InventoryManagement()
-    {
-        inventoryOpen = true; // lopetetaan hiirellä kameran ohjaus ja tuodaan kursori tavaroiden käsittelyä varten
-                              // Tähän inventoryn käsittely ja lopussa inventoryOpen = false;
-                              // Kimmo jatkaa, ei taidot riitä
-
-        if (inventoryOpen == true)
-        {
-            Cursor.visible = true;
-
-        }
-
-    }
+    }    
 
     private void Jump()
     {
@@ -128,4 +148,26 @@ public class PlayerMovement : MonoBehaviour {
             playerJumped = false;
         }
     }
+
+    private void Raycast()
+    {                
+
+        rayForward = eyes.transform.TransformDirection(Vector3.forward) * 10;
+        Debug.DrawRay(eyes.transform.position, rayForward, Color.yellow);
+
+        if (Physics.Raycast(eyes.transform.position, rayForward, out hit, 10, layerMask))
+        {
+            Item item = hit.collider.gameObject.GetComponent<Item>();
+            string itemName = item.Name;
+            _InvControl.OnItem(itemName);
+            Debug.Log(layerMask);
+        }
+        else
+        {
+            _InvControl.OffItem(false);
+        }
+        
+
+        
+    }    
 }

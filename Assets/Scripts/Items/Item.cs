@@ -11,4 +11,21 @@ public class Item : MonoBehaviour {
     public string Description = "Item Description";
     public Sprite Sprite;
     public GameObject GameObjectPrefab;
+
+    public void isEquipped(bool inhand)
+    {
+        Collider collider = GetComponent<Collider>();
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (inhand)
+        {
+            collider.enabled = false;
+            rb.useGravity = false;
+        }
+        else
+        {
+            collider.enabled = true;
+            rb.useGravity = true;
+        }
+        
+    }
 }
