@@ -11,7 +11,7 @@ public class RaycastForward : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         RaycastHit hit;
-        float distance;
+        float rayDistance;
         int layerMask = LayerMask.GetMask("Item");
 
         //Debug
@@ -22,8 +22,8 @@ public class RaycastForward : MonoBehaviour {
         {
             Item item = hit.collider.gameObject.GetComponent<Item>();           
             
-            distance = hit.distance;
-            Debug.Log(distance + " " + item.Name);
+            rayDistance = hit.distance;
+            Debug.Log(rayDistance + " " + item.Name);
         }
 
         if (Input.GetButtonDown("Fire1"))
