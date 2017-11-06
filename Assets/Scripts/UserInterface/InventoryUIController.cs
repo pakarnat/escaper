@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventoryUIController : MonoBehaviour {
+public class InventoryUIController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler{
 
-    [SerializeField]
+    
     private InventoryDetails _inventoryDetails;
     private GameObject _playerInventoryWindow;    
     private GameObject _infoView;
@@ -28,20 +28,20 @@ public class InventoryUIController : MonoBehaviour {
         _playerInventoryWindow = transform.Find("Inventory_View").gameObject;
         _content = _playerInventoryWindow.transform.Find("Content");
         _infoView = transform.Find("Hint_View").gameObject;
+        _inventoryDetails = transform.GetComponent<InventoryDetails>();
     }
 
     private void Start()
-    {
-        _inventoryDetails.InventoryItems.Clear();
-        for (int i = 0; i < _inventoryDetails.TotalSlots; i++)
+    {        
+        for (int i = 0; i < _inventoryDetails.totalSlots; i++)
         {
             GameObject newItem = Instantiate(_itemTemplate, _content);
-            newItem.transform.localScale = Vector3.one;
+            newItem.transform.localScale = Vector3.one;            
         }
 
         for (int i = 0; i < _inventoryDetails.InventoryItems.Count; i++)
         {
-            _content.GetChild(i).Find("ItemImage").GetComponent<Image>().sprite = _inventoryDetails.InventoryItems[i].Sprite;
+            _content.GetChild(i).Find("ItemImage").GetComponent<Image>().sprite = _inventoryDetails.InventoryItems[i].gameObject.GetComponent<Item>().Sprite;
         }
         
     }    
@@ -54,15 +54,22 @@ public class InventoryUIController : MonoBehaviour {
     {
         for (int i = 0; i < _inventoryDetails.InventoryItems.Count; i++)
         {
-            _content.GetChild(i).Find("ItemImage").GetComponent<Image>().sprite = _inventoryDetails.InventoryItems[i].Sprite;
+            _content.GetChild(i).Find("ItemImage").GetComponent<Image>().sprite = _inventoryDetails.InventoryItems[i].gameObject.GetComponent<Item>().Sprite;
         }
 
         ToggleWindow(_playerInventoryWindow);
     }
-    public void EquipItem()
+    public void OnPointerEnter(PointerEventData eventdata)
     {
-
+        isOver = true;
+        Debug.Log("Enter");
     }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isOver = false;
+        Debug.Log("Exit");
+    }    
+   
     public void OnItem(string itemName)
     {        
         _infoText.text = "Pick up " + itemName + " with e";
@@ -72,10 +79,4 @@ public class InventoryUIController : MonoBehaviour {
     {
         _infoView.SetActive(false);
     }
-
-    
-    
-
-    
-
 }

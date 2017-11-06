@@ -2,11 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Item/Inventory", fileName = "Inventory Data")]
-public class InventoryDetails : ScriptableObject {
 
-    public List<Item> InventoryItems;
-    [Range(5,50)]
-    public int TotalSlots;
+public class InventoryDetails : MonoBehaviour{
+
+    public List<GameObject> InventoryItems;
+    public int totalSlots = 10;
+
+    public GameObject GetItem(string name)
+    {
+        foreach (GameObject item in InventoryItems)
+        {
+           if(item.GetComponent<Item>().Name == name)
+            {
+                return item;
+            }            
+        }
+        return null;
+    }
 
 }
