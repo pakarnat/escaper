@@ -1,22 +1,21 @@
 fileFormatVersion: 2
-guid: bdf8f4bf8f8a5394492ad0cb608a791c
-timeCreated: 1508484035
+guid: 588b50605839c664cb2c04732b398998
+timeCreated: 1509883190
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: default
+    100000: Cylinder01
     100002: //RootNode
-    400000: default
+    400000: Cylinder01
     400002: //RootNode
-    2300000: default
-    3300000: default
-    4300000: default
-    6400000: default
+    2300000: Cylinder01
+    3300000: Cylinder01
+    4300000: Cylinder01
   materials:
     importMaterials: 1
     materialName: 0
-    materialSearch: 2
+    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -41,13 +40,13 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
-    keepQuads: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001

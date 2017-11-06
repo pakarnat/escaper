@@ -28,14 +28,14 @@ public class RaycastForward : MonoBehaviour {
 
         if (Input.GetButtonDown("Fire1"))
         {
-            Item item = hit.collider.gameObject.GetComponent<Item>();
+            GameObject item = hit.collider.gameObject;
             PickUpItem(item);
             Destroy(hit.collider.gameObject);
             Debug.Log("Fire1");
         }
     }
 
-    public void PickUpItem(Item item)
+    public void PickUpItem(GameObject item)
     {
         _inventoryDetails.InventoryItems.Add(item);       
     }

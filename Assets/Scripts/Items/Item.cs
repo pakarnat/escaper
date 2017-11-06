@@ -11,21 +11,28 @@ public class Item : MonoBehaviour {
     public string Description = "Item Description";
     public Sprite Sprite;
     public GameObject GameObjectPrefab;
+    private bool isEquipped = false;
+    private bool inInventory = false;
 
-    public void isEquipped(bool inhand)
+    public void PickedUp()
     {
         Collider collider = GetComponent<Collider>();
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (inhand)
-        {
-            collider.enabled = false;
-            rb.useGravity = false;
-        }
-        else
-        {
-            collider.enabled = true;
-            rb.useGravity = true;
-        }
-        
+        Rigidbody rb = GetComponent<Rigidbody>();        
+        collider.enabled = false;
+        rb.useGravity = false;          
+    }
+    public void Equip()
+    {
+        isEquipped = true;
+        this.GetComponent<MeshRenderer>().enabled = true;        
+    }
+    public void UnEquip()
+    {
+        isEquipped = false;
+        this.GetComponent<MeshRenderer>().enabled = false;
+    }
+    public bool InInventory()
+    {
+        return inInventory;
     }
 }
