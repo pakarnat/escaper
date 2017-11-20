@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Kuolemanvesi : MonoBehaviour {
     public GameObject pelaaja;
-    Vector3 spawn =  new Vector3(3190, 38, 3070);
+    Vector3 spawn =  new Vector3(3190, 48, 3070);
     [SerializeField]
     private Text _DeathText;
     
