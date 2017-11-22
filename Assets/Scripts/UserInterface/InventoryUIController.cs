@@ -71,8 +71,9 @@ public class InventoryUIController : MonoBehaviour, IPointerEnterHandler, IPoint
     }    
    
     public void OnItem(string itemName)
-    {        
-        _infoText.text = "Pick up " + itemName + " with e";
+    {
+        _infoText.text = "Pick up " + itemName + " with (E)";
+        
         _infoView.SetActive(true); 
     }
     public void OffItem(bool staying)

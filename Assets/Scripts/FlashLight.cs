@@ -3,40 +3,145 @@ using System.Collections;
 
 public class FlashLight : MonoBehaviour
 {
+    
+    private Camera ItemCamera;
+    private int normalMask;
+    
+    public Light redLight;
+    public Light greenLight;
+    public Light whiteLight;
+    private Light currentLight;
 
-    public Light light;    //assign gameobject with light component attached
+    //assign gameobject with light component attached
+    private void Awake()
+    {
+        currentLight = whiteLight;
+        currentLight.enabled = true;
+        redLight.enabled = greenLight.enabled = false;
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {      //Left mouse button
-            light.enabled = !light.enabled;      //changes light on/off
-        }
-        if (Input.GetMouseButtonDown(1))
+        if (this.GetComponentInParent<Item>().isEquipped)
         {
-            Color valo1 = new Color(255f,255f,10f,255f);
-            Color valo2 = new Color(255f, 10f, 10f,255f);
-            Color valo3 = new Color(10f, 10f, 255f,255f);
-            Color valo4 = new Color(10f, 255f, 10f,255f);
-            if (light.color == valo1){
-                light.color = valo2;
-            }
-            else if (light.color == valo2)
+            ItemCamera = GetComponentInParent<Camera>();
+            normalMask = ItemCamera.cullingMask;
+            if (Input.GetMouseButtonDown(0))
             {
-                light.color = valo3;
+                if (currentLight.enabled == true)
+                {
+                    if(currentLight == whiteLight)
+                    {
+                        WhiteLightOff();                        
+                    }
+                    else if(currentLight == greenLight)
+                    {
+                        GreenLightOff();
+                    }
+                    else if(currentLight == redLight)
+                    {
+                        RedLightOff();
+                    }
+                }
+                else if (currentLight.enabled == false)
+                {
+                    if(currentLight == whiteLight)
+                    {
+                        WhiteLightOn();
+                    }
+                    else if(currentLight == greenLight)
+                    {
+                        GreenLightOn();
+                    }
+                    else if(currentLight == redLight)
+                    {
+                        RedLightOn();
+                    }
+                }
+                
             }
-            else if (light.color == valo3)
+            if (Input.GetMouseButtonDown(1))
             {
-                light.color = valo4;
+                if(currentLight == whiteLight)
+                {
+                    if (currentLight.enabled)
+                    {
+                        WhiteLightOff();
+                        RedLightOn();
+                    }
+                    currentLight = redLight;
+                }
+                else if(currentLight == redLight)
+                {
+                    if (currentLight.enabled)
+                    {
+                        RedLightOff();
+                        GreenLightOn();
+                    }
+                    currentLight = greenLight;
+                }
+                else if(currentLight == greenLight)
+                {
+                    if (currentLight.enabled)
+                    {
+                        GreenLightOff();
+                        WhiteLightOn();
+                    }
+                    currentLight = whiteLight;
+                }
+                else
+                {
+                    if (currentLight.enabled)
+                    {
+                        RedLightOff();
+                        GreenLightOff();
+                        WhiteLightOn();
+                    }
+                    currentLight = whiteLight;
+                }                
             }
-            else if (light.color == valo4)
-            {
-                light.color = valo1;
-            }
-            else
-            {
-                light.color = valo1;
-            }
+        }
+        else if (this.GetComponentInParent<Item>().InInventory())
+        {
+            whiteLight.enabled = redLight.enabled = greenLight.enabled = currentLight.enabled = false;
         }
     }
+    void GreenLightOn()
+    {
+        redLight.enabled = whiteLight.enabled = false;         
+        currentLight = greenLight;
+        currentLight.enabled = true;
+        ItemCamera.cullingMask |= (1 << LayerMask.NameToLayer("GreenEaster"));
+    }
+    void GreenLightOff()
+    {
+        currentLight.enabled = false;
+        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster")));
+    }
+    void RedLightOn()
+    {
+        whiteLight.enabled = greenLight.enabled = false;        
+        currentLight = redLight;
+        currentLight.enabled = true;
+        ItemCamera.cullingMask |= (1 << LayerMask.NameToLayer("RedEaster"));
+    }
+    void RedLightOff()
+    {
+        currentLight.enabled = false;
+        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster")));
+    }
+    void WhiteLightOn()
+    {
+        greenLight.enabled = redLight.enabled = false;        
+        currentLight = whiteLight;
+        currentLight.enabled = true;
+        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster")));
+    }
+    void WhiteLightOff()
+    {
+        currentLight.enabled = false;
+        whiteLight.enabled = false;
+        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster")));
+    }
+    
 }

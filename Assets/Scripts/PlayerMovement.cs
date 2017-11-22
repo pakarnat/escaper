@@ -224,10 +224,14 @@ public class PlayerMovement : MonoBehaviour {
         itemData.PickedUp();
 
         //Jos kädessä ei ole vielä mitään, laitetaan esine käteen.
-        if (currentlyEquipped = null) {
+        if (currentlyEquipped == null) {
             
             itemData.Equip();
-            currentlyEquipped = item;
+            currentlyEquipped = item;            
+        }
+        else
+        {
+            itemData.UnEquip();
         }
 
         //lisätään nostettu esine inventoryyn.
