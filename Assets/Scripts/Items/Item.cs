@@ -11,7 +11,8 @@ public class Item : MonoBehaviour {
     public string Description = "Item Description";
     public Sprite Sprite;
     public GameObject GameObjectPrefab;
-    private bool isEquipped = false;
+    public GameObject ItemGraphic;
+    public bool isEquipped = false;
     private bool inInventory = false;
 
     public void PickedUp()
@@ -19,17 +20,20 @@ public class Item : MonoBehaviour {
         Collider collider = GetComponent<Collider>();
         Rigidbody rb = GetComponent<Rigidbody>();        
         collider.enabled = false;
-        rb.useGravity = false;          
+        rb.useGravity = false;
+        inInventory = true;
     }
     public void Equip()
     {
         isEquipped = true;
-        this.GetComponent<MeshRenderer>().enabled = true;        
+        ItemGraphic.GetComponent<MeshRenderer>().enabled = true;
+        this.enabled = true;
     }
     public void UnEquip()
     {
         isEquipped = false;
-        this.GetComponent<MeshRenderer>().enabled = false;
+        ItemGraphic.GetComponent<MeshRenderer>().enabled = false;
+        this.enabled = false;
     }
     public bool InInventory()
     {
