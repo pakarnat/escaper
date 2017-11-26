@@ -8,8 +8,8 @@ public class Lautta : MonoBehaviour
     public Transform target;
     public Transform Start;
     public float speed;
-
-    int x;
+    public float odotusaika = 5;
+    int x = 0;
     // Update is called once per frame
     void Update()
     {
@@ -19,17 +19,34 @@ public class Lautta : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
             if (transform.position == target.position)
             {
-                x = 1;
+                StartCoroutine(Odotus());
             }
         }
 
         if (x == 1) {
             transform.position = Vector3.MoveTowards(transform.position, Start.position, step);
             if(transform.position == Start.position)
-            {  
-                x = 0;
+            {
+                StartCoroutine(Odotus());
             }
         }
         
+    }
+    IEnumerator Odotus()
+    {
+        if (x == 0)
+        {
+            yield return new WaitForSeconds(odotusaika);
+            x = 1;
+            yield break;
+        }
+        if (x == 1)
+        {
+            yield return new WaitForSeconds(odotusaika);
+            x = 0;
+            yield break;
+        }
+        
+
     }
 }
