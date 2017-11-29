@@ -30,6 +30,7 @@ public class Kuolemanvesi : MonoBehaviour {
         _no.image.enabled = true;
         _yestext.enabled = true;
         _notext.enabled = true;
+        _yes.enabled = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -47,6 +48,8 @@ public class Kuolemanvesi : MonoBehaviour {
         _no.image.enabled = false;
         _yestext.enabled = false;
         _notext.enabled = false;
+        _yes.enabled = false;
+        Debug.Log("Click");
     }
     public void Quit()
     {
