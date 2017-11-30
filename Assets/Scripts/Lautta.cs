@@ -9,6 +9,8 @@ public class Lautta : MonoBehaviour
     public Transform Start;
     public float speed;
     public float odotusaika = 5;
+    public GameObject player;
+    public Transform platform;
     int x = 0;
     // Update is called once per frame
     void Update()
@@ -16,6 +18,7 @@ public class Lautta : MonoBehaviour
         float step = speed * Time.deltaTime;
         if (x == 0)
         {
+            // lautta menee 2 kohteeseen (eli saarelle)
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
             if (transform.position == target.position)
             {
@@ -24,6 +27,7 @@ public class Lautta : MonoBehaviour
         }
 
         if (x == 1) {
+            //kun lautta saavuttaa saaren niin se lähtee takasin alku pisteeseen
             transform.position = Vector3.MoveTowards(transform.position, Start.position, step);
             if(transform.position == Start.position)
             {
@@ -32,10 +36,11 @@ public class Lautta : MonoBehaviour
         }
         
     }
+    //lautta odottaa odotusajan verran kohteessa ennenkuin kääntää suunnan takasin toiseen kohteeseen
     IEnumerator Odotus()
     {
         if (x == 0)
-        {
+        {     
             yield return new WaitForSeconds(odotusaika);
             x = 1;
             yield break;
@@ -46,7 +51,7 @@ public class Lautta : MonoBehaviour
             x = 0;
             yield break;
         }
-        
-
     }
+
+    
 }
