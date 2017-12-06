@@ -15,10 +15,11 @@ public class ForestEntrance : MonoBehaviour {
     private void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Player")
-        {
+        {            
             Destroy(invWall);
             Debug.Log("I can't go there, it's too dark.");
         }
+        
     }
 
 

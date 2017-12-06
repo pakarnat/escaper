@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private float vertVelocity;
     public float jumpVelocity = 20f;
+    
 
     // Use this for initialization
     void Start () {
@@ -197,15 +198,19 @@ public class PlayerMovement : MonoBehaviour {
             //Etsitään osutusta kohteesta componentti Item, siitä esineen nimi ja lähetään se UIsta huolta pitävälle scriptille.            
             _InvControl.OnItem(hit.collider.gameObject.GetComponent<Item>().Name);            
         }
-        else
-        {
-            //Ei olla enää esineen päällä, UIsta huolta pitävän scriptin olisi hyvä tietää se.
-            _InvControl.OffItem(false);
-        } 
-
-        if (Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach, interactableObjectLayerMask))
+        else if (Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach, interactableObjectLayerMask))
         {
             _InvControl.OnObject(hit.collider.gameObject.tag);            
+        }
+        else if(Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach)){
+            if (hit.collider.gameObject.tag == "ForestEntrance" && (_inventoryDetails.GetItem("Flaslight") == null))
+            {
+                _InvControl.Forest();
+            }
+            else if (hit.collider.gameObject.tag == "ForestEntrance") 
+            {
+                Destroy(hit.collider.gameObject);
+            }
         }
         else
         {
@@ -253,13 +258,13 @@ public class PlayerMovement : MonoBehaviour {
     {
         GameObject obj = hit.collider.gameObject;
 
-        if (obj.tag == "WallDoor")
+        if (obj.tag == "WallDoor" && (_inventoryDetails.GetItem("Key").GetComponent<Item>().Name == "Key"))
         {
             obj.GetComponent<walldoor>().open = !obj.GetComponent<walldoor>().open;
         }
-        else if(obj.tag == "LightHouseDoor")
+        if (obj.tag == "LightHouseDoor")
         {
             obj.GetComponent<doorscipt>().open = !obj.GetComponent<doorscipt>().open;
-        }
+        }        
     }
 }
