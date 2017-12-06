@@ -11,6 +11,7 @@ public class FlashLight : MonoBehaviour
     public Light greenLight;
     public Light whiteLight;
     private Light currentLight;
+    private RaycastHit hit;
 
     //assign gameobject with light component attached
     private void Awake()
@@ -55,7 +56,7 @@ public class FlashLight : MonoBehaviour
                     }
                     else if(currentLight == redLight)
                     {
-                        RedLightOn();
+                        RedLightOn(); 
                     }
                 }
                 
@@ -99,6 +100,20 @@ public class FlashLight : MonoBehaviour
                     }
                     currentLight = whiteLight;
                 }                
+            }
+            if(currentLight == redLight)
+            {
+                Vector3 forward = transform.TransformDirection(Vector3.forward) * 20;
+                Debug.DrawRay(transform.position, forward, Color.red);
+
+                if (Physics.Raycast(transform.position, forward, out hit, 30))
+                {
+                    GameObject enemy = hit.collider.gameObject;
+                    if (enemy.tag == "Enemy")
+                    {
+                        enemy.GetComponent<GhostFollow>().TakeDamage();                        
+                    }
+                }
             }
         }
         else if (this.GetComponentInParent<Item>().InInventory())

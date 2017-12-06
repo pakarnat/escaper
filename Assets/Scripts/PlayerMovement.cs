@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private float vertVelocity;
     public float jumpVelocity = 20f;
+    
 
     // Use this for initialization
     void Start () {
@@ -54,7 +55,7 @@ public class PlayerMovement : MonoBehaviour {
     void Update () {
 
         itemLayerMask = LayerMask.GetMask("Item");
-        interactableObjectLayerMask = LayerMask.GetMask("InteractableObject");
+        interactableObjectLayerMask = LayerMask.GetMask("InteractableObject");       
                                
         Movement(); 
 
@@ -117,6 +118,8 @@ public class PlayerMovement : MonoBehaviour {
             {
                 InteractWithItem(hit);
             }
+
+
             
         }
         if (Input.GetButtonDown("Inventory")) // INVENTORY
@@ -195,11 +198,24 @@ public class PlayerMovement : MonoBehaviour {
             //Etsitään osutusta kohteesta componentti Item, siitä esineen nimi ja lähetään se UIsta huolta pitävälle scriptille.            
             _InvControl.OnItem(hit.collider.gameObject.GetComponent<Item>().Name);            
         }
+        else if (Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach, interactableObjectLayerMask))
+        {
+            _InvControl.OnObject(hit.collider.gameObject.tag);            
+        }
+        else if(Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach)){
+            if (hit.collider.gameObject.tag == "ForestEntrance" && (_inventoryDetails.GetItem("Flaslight") == null))
+            {
+                _InvControl.Forest();
+            }
+            else if (hit.collider.gameObject.tag == "ForestEntrance") 
+            {
+                Destroy(hit.collider.gameObject);
+            }
+        }
         else
         {
-            //Ei olla enää esineen päällä, UIsta huolta pitävän scriptin olisi hyvä tietää se.
             _InvControl.OffItem(false);
-        } 
+        }
     }
 
     //Funktio itemeiden nostamiseen maasta.
@@ -241,6 +257,14 @@ public class PlayerMovement : MonoBehaviour {
     private void InteractWithItem(RaycastHit hit)
     {
         GameObject obj = hit.collider.gameObject;
-        //Do stuff with item. Eli obj on se gameitem, minkä kanssa haluaa jotain tehdä.
+
+        if (obj.tag == "WallDoor" && (_inventoryDetails.GetItem("Key").GetComponent<Item>().Name == "Key"))
+        {
+            obj.GetComponent<walldoor>().open = !obj.GetComponent<walldoor>().open;
+        }
+        if (obj.tag == "LightHouseDoor")
+        {
+            obj.GetComponent<doorscipt>().open = !obj.GetComponent<doorscipt>().open;
+        }        
     }
 }

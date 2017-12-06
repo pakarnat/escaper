@@ -80,4 +80,14 @@ public class InventoryUIController : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         _infoView.SetActive(false);
     }
+    public void OnObject(string ObjectTag)
+    {
+        _infoText.text = "Open/close " + ObjectTag + "  with (E)";
+        _infoView.SetActive(true);
+    }
+    public void Forest()
+    {
+        _infoText.text = "I can't go there, it's too dark!";
+        _infoView.SetActive(true);
+    }
 }

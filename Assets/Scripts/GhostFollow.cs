@@ -9,6 +9,9 @@ public class GhostFollow : MonoBehaviour {
     int MaxDist = 10;
     int MinDist = 5;
 
+    [SerializeField]
+    private float health = 10;
+
 
 
     void Start()
@@ -37,5 +40,26 @@ public class GhostFollow : MonoBehaviour {
             }
 
         }
+        if(this.health <= 0)
+        {
+            this.gameObject.GetComponent<Collider>().enabled = false;
+            Die();
+        }
+        
     }
+
+    
+
+    private void Die()
+    {
+        this.gameObject.GetComponent<ParticleSystem>().Play();
+        Destroy(this.gameObject, 2);
+        Debug.Log("Enemy Died!");
+    }
+
+    public void TakeDamage()
+    {
+        this.health--;
+    }
+
 }
