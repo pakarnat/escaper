@@ -10,6 +10,7 @@ public class InventoryUIController : MonoBehaviour, IPointerEnterHandler, IPoint
     private InventoryDetails _inventoryDetails;
     private GameObject _playerInventoryWindow;    
     private GameObject _infoView;
+    private GameObject _ReadablePaper;
 
     [SerializeField]
     private Text _infoText;
@@ -26,6 +27,7 @@ public class InventoryUIController : MonoBehaviour, IPointerEnterHandler, IPoint
     private void Awake()
     {
         _playerInventoryWindow = transform.Find("Inventory_View").gameObject;
+        _ReadablePaper = transform.Find("ReadablePaper").gameObject;
         _content = _playerInventoryWindow.transform.Find("Content");
         _infoView = transform.Find("Hint_View").gameObject;
         _inventoryDetails = transform.GetComponent<InventoryDetails>();
@@ -96,4 +98,15 @@ public class InventoryUIController : MonoBehaviour, IPointerEnterHandler, IPoint
 
         _infoView.SetActive(true);
     }
+    public void ReadPaper()
+    {
+        ToggleWindow(_ReadablePaper);
+    }
+
+    public void ClosePaper()
+    {
+        ToggleWindow(_ReadablePaper);
+    }
+
 }
+    
