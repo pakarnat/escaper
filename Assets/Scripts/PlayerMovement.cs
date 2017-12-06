@@ -195,14 +195,16 @@ public class PlayerMovement : MonoBehaviour {
         //Ammutaan itse säde silmistä, out hit kertoo mihin on osuttu.
         if (Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach, itemLayerMask))
         {
-            //Etsitään osutusta kohteesta componentti Item, siitä esineen nimi ja lähetään se UIsta huolta pitävälle scriptille.            
-            _InvControl.OnItem(hit.collider.gameObject.GetComponent<Item>().Name);            
+            //Etsitään osutusta kohteesta componentti Item, siitä esineen nimi ja lähetään se UIsta huolta pitävälle scriptille.  
+            if (hit.collider.tag == "ReadablePaper") _InvControl.OnRead(hit.collider.gameObject.GetComponent<Item>().Name);
+            else _InvControl.OnItem(hit.collider.gameObject.GetComponent<Item>().Name);
         }
         else if (Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach, interactableObjectLayerMask))
         {
             _InvControl.OnObject(hit.collider.gameObject.tag);            
         }
-        else if(Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach)){
+        else if(Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach))
+        {
             if (hit.collider.gameObject.tag == "ForestEntrance" && (_inventoryDetails.GetItem("Flaslight") == null))
             {
                 _InvControl.Forest();
@@ -240,8 +242,9 @@ public class PlayerMovement : MonoBehaviour {
         itemData.PickedUp();
 
         //Jos kädessä ei ole vielä mitään, laitetaan esine käteen.
-        if (currentlyEquipped == null) {
-            
+        if (currentlyEquipped == null && item.tag != "ReadablePaper")
+        {
+
             itemData.Equip();
             currentlyEquipped = item;            
         }
@@ -251,7 +254,8 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         //lisätään nostettu esine inventoryyn.
-        _inventoryDetails.InventoryItems.Add(item);
+        if (item.tag == "ReadablePaper") Debug.Log("Lisää tähän lukeminen");
+        else _inventoryDetails.InventoryItems.Add(item);        
         
     }
     private void InteractWithItem(RaycastHit hit)

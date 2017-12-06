@@ -90,4 +90,10 @@ public class InventoryUIController : MonoBehaviour, IPointerEnterHandler, IPoint
         _infoText.text = "I can't go there, it's too dark!";
         _infoView.SetActive(true);
     }
+    public void OnRead(string itemName)
+    {
+        _infoText.text = "Read " + itemName + " with (E)";
+
+        _infoView.SetActive(true);
+    }
 }
