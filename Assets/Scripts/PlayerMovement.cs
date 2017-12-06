@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
     private Canvas UI;
     private InventoryUIController _InvControl;
 
+    private int hasPaper = 0;
+
     private bool menuOpen;
 
     private bool inventoryOpen, playerJumped;
@@ -105,6 +107,11 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButton("Jump"))
         {
             Jump();
+        }
+
+        if (Input.GetKeyDown("r"))
+        {
+            if (hasPaper == 1) _InvControl.ClosePaper();
         }
 
         if (Input.GetKeyDown("e"))
@@ -254,9 +261,13 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         //lisätään nostettu esine inventoryyn.
-        if (item.tag == "ReadablePaper") Debug.Log("Lisää tähän lukeminen");
+        if (item.tag == "ReadablePaper")
+        {
+            _InvControl.ReadPaper();
+            hasPaper = 1;
+        }
+
         else _inventoryDetails.InventoryItems.Add(item);        
-        
     }
     private void InteractWithItem(RaycastHit hit)
     {

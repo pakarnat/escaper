@@ -53,7 +53,7 @@ public class GhostFollow : MonoBehaviour {
     private void Die()
     {
         this.gameObject.GetComponent<ParticleSystem>().Play();
-        Destroy(this.gameObject, 2);
+        Destroy(this.gameObject, 1);
         Debug.Log("Enemy Died!");
     }
 
