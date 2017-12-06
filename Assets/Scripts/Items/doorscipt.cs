@@ -14,7 +14,7 @@ public class doorscipt : MonoBehaviour {
 
     void Update()
     {
-            if (close)
+            /*if (close)
             {
                
                     if (Input.GetKeyDown(KeyCode.E))
@@ -31,7 +31,7 @@ public class doorscipt : MonoBehaviour {
                     close = true;
                     open = false;
                 }
-            }
+            }*/
    
 
         if (open)

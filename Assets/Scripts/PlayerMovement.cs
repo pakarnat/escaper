@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour {
     void Update () {
 
         itemLayerMask = LayerMask.GetMask("Item");
-        interactableObjectLayerMask = LayerMask.GetMask("InteractableObject");
+        interactableObjectLayerMask = LayerMask.GetMask("InteractableObject");       
                                
         Movement(); 
 
@@ -117,6 +117,8 @@ public class PlayerMovement : MonoBehaviour {
             {
                 InteractWithItem(hit);
             }
+
+
             
         }
         if (Input.GetButtonDown("Inventory")) // INVENTORY
@@ -200,6 +202,15 @@ public class PlayerMovement : MonoBehaviour {
             //Ei olla enää esineen päällä, UIsta huolta pitävän scriptin olisi hyvä tietää se.
             _InvControl.OffItem(false);
         } 
+
+        if (Physics.Raycast(eyes.transform.position, rayForward, out hit, rayReach, interactableObjectLayerMask))
+        {
+            _InvControl.OnObject(hit.collider.gameObject.tag);            
+        }
+        else
+        {
+            _InvControl.OffItem(false);
+        }
     }
 
     //Funktio itemeiden nostamiseen maasta.
@@ -241,6 +252,14 @@ public class PlayerMovement : MonoBehaviour {
     private void InteractWithItem(RaycastHit hit)
     {
         GameObject obj = hit.collider.gameObject;
-        //Do stuff with item. Eli obj on se gameitem, minkä kanssa haluaa jotain tehdä.
+
+        if (obj.tag == "WallDoor")
+        {
+            obj.GetComponent<walldoor>().open = !obj.GetComponent<walldoor>().open;
+        }
+        else if(obj.tag == "LightHouseDoor")
+        {
+            obj.GetComponent<doorscipt>().open = !obj.GetComponent<doorscipt>().open;
+        }
     }
 }

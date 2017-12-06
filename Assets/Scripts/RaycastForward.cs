@@ -12,13 +12,14 @@ public class RaycastForward : MonoBehaviour {
     void Update () {
         RaycastHit hit;
         float rayDistance;
-        int layerMask = LayerMask.GetMask("Item");
+        int itemLayerMask = LayerMask.GetMask("Item");
+        int objectLayerMask = LayerMask.GetMask("InteractableObject");
 
         //Debug
         Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
         Debug.DrawRay(transform.position, forward, Color.yellow);
 
-        if(Physics.Raycast(transform.position, forward, out hit, 10, layerMask))
+        if(Physics.Raycast(transform.position, forward, out hit, 10, itemLayerMask))
         {
             Item item = hit.collider.gameObject.GetComponent<Item>();           
             
