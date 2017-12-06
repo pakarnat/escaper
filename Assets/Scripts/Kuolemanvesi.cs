@@ -21,18 +21,21 @@ public class Kuolemanvesi : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        var Pmovement = pelaaja.GetComponent<PlayerMovement>();
-        var Ccontrol = pelaaja.GetComponent<CharacterController>();
-        Pmovement.enabled = false;
-        Ccontrol.enabled = false;
-        _DeathText.enabled = true;
-        _yes.image.enabled = true;
-        _no.image.enabled = true;
-        _yestext.enabled = true;
-        _notext.enabled = true;
-        _yes.enabled = true;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        if (other.gameObject.tag == "Player")
+        {
+            var Pmovement = pelaaja.GetComponent<PlayerMovement>();
+            var Ccontrol = pelaaja.GetComponent<CharacterController>();
+            Pmovement.enabled = false;
+            Ccontrol.enabled = false;
+            _DeathText.enabled = true;
+            _yes.image.enabled = true;
+            _no.image.enabled = true;
+            _yestext.enabled = true;
+            _notext.enabled = true;
+            _yes.enabled = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
     public void Spawn()
     {
@@ -49,7 +52,6 @@ public class Kuolemanvesi : MonoBehaviour {
         _yestext.enabled = false;
         _notext.enabled = false;
         _yes.enabled = false;
-        Debug.Log("Click");
     }
     public void Quit()
     {
