@@ -5,10 +5,13 @@ using UnityEngine;
 public class EnemySpawn : MonoBehaviour
 {
 
-    public GameObject enemy;                // The enemy prefab to be spawned.
-    public float spawnTime = 1f;            // How long between each spawn.
-    public Transform spawnPoints;         // An array of the spawn points this enemy can spawn from.
+    public GameObject enemy;                // Vihollisen Prefab
+    public float spawnTime = 1f;            // Mitenkä pitkä väli vihollisien spawnien välissä.
+    public Transform spawnPoints;         // Mistä kohteesta viholliset spawnaavat.
 
+
+    //kun pelaaja tulee (emptygameobject with trigger) alueelle jolle on määritetty koko niin, looppi käynnistyy joka kutsuu Spawn functiota ensimmäisen kerran spawnTime arvon mukaan.
+    //ja tekee loopin joka kutsuu Spawn funktiota spawnTime arvon välein
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -16,7 +19,7 @@ public class EnemySpawn : MonoBehaviour
             InvokeRepeating("Spawn", spawnTime, spawnTime);
         }
     }
-
+    //kun pelaa poistuu alueelta niin scripti lopettaa Spawn funktion kutsun.
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -27,11 +30,12 @@ public class EnemySpawn : MonoBehaviour
 
     void Spawn()
     {
-            float spawnPointX = Random.Range(-500, 500);
-            float spawnPointY = Random.Range(50, 300);
-            float spawnPointZ = Random.Range(-500, 500);
-            Vector3 spawnPosition = new Vector3(spawnPointX + spawnPoints.transform.position.x, spawnPointY + spawnPoints.transform.position.y, spawnPointZ + spawnPoints.transform.position.z);
-            Instantiate(enemy, spawnPosition, enemy.transform.rotation);
+            float spawnPointX = Random.Range(-500, 500); // random x arvo
+            float spawnPointY = Random.Range(50, 300); // random y arvo
+            float spawnPointZ = Random.Range(-500, 500); //random z arvo
+            //spawnPosition arvo on spawnPoints sen hetkinen arvo plus sattuman varainen arvon lisäys yläpuolella olevien random muuttujien arvon mukaan
+            Vector3 spawnPosition = new Vector3(spawnPointX + spawnPoints.transform.position.x, spawnPointY + spawnPoints.transform.position.y, spawnPointZ + spawnPoints.transform.position.z); 
+            Instantiate(enemy, spawnPosition, enemy.transform.rotation); // spawnataan uusi vihollinen spawnPosition arvoon
     }
     
 }

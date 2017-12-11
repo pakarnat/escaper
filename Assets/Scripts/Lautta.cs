@@ -5,13 +5,13 @@ using UnityEngine;
 public class Lautta : MonoBehaviour
 {
 
-    public Transform target;
-    public Transform Start;
-    public float speed;
-    public float odotusaika = 5;
-    public GameObject player;
-    public Transform platform;
-    int x = 0;
+    public Transform target; //kohta mihinkä halutaan lautan menevän
+    public Transform Start; // kohta mistä lauttan matka alkaa ja samalla paluupiste
+    public float speed = 35; // lautan nopeus
+    public float odotusaika = 5; // kuinka kauan lautta odottaa maissa
+    public GameObject player; //pelaajan hahmo
+    public Transform platform; // lautassa oleva tyhjä peliobjecti jolla otetaan pelaaja kiinni
+    int x = 0; // kumpaan suuntaan lautta on menossa
     // Update is called once per frame
     void Update()
     {
