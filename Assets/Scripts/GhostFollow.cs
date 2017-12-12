@@ -54,7 +54,13 @@ public class GhostFollow : MonoBehaviour {
     {
         this.gameObject.GetComponent<ParticleSystem>().Play();
         Destroy(this.gameObject, 1);
-        Debug.Log("Enemy Died!");
+        EnemySpawn.killedEnemies++; // Kun vihollisia on tapettu 15, pudotetaan avain jolla aukeaa majakka
+
+        if (EnemySpawn.killedEnemies >= 15)
+        {
+            Debug.Log("Nyt on tapettu 15, tiputetaan avain");
+            CancelInvoke("Spawn");
+        }
     }
 
     public void TakeDamage()
