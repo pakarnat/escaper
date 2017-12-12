@@ -8,7 +8,13 @@ public class EnemySpawn : MonoBehaviour
     public GameObject enemy;                // Vihollisen Prefab
     public float spawnTime = 1f;            // Mitenkä pitkä väli vihollisien spawnien välissä.
     public Transform spawnPoints;         // Mistä kohteesta viholliset spawnaavat.
+    AudioSource thunder;
+    public static int killedEnemies = 0;
 
+    void Start()
+    {
+        thunder = GetComponent<AudioSource>();
+    }
 
     //kun pelaaja tulee (emptygameobject with trigger) alueelle jolle on määritetty koko niin, looppi käynnistyy joka kutsuu Spawn functiota ensimmäisen kerran spawnTime arvon mukaan.
     //ja tekee loopin joka kutsuu Spawn funktiota spawnTime arvon välein
@@ -16,6 +22,7 @@ public class EnemySpawn : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            thunder.Play();
             InvokeRepeating("Spawn", spawnTime, spawnTime);
         }
     }

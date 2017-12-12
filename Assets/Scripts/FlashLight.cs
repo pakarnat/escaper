@@ -103,15 +103,18 @@ public class FlashLight : MonoBehaviour
             }
             if(currentLight == redLight)
             {
-                Vector3 forward = transform.TransformDirection(Vector3.forward) * 20;
+                Vector3 forward = transform.TransformDirection(Vector3.forward) * 35;
                 Debug.DrawRay(transform.position, forward, Color.red);
 
-                if (Physics.Raycast(transform.position, forward, out hit, 30))
+                if (currentLight.enabled == true)
                 {
-                    GameObject enemy = hit.collider.gameObject;
-                    if (enemy.tag == "Enemy")
+                    if (Physics.Raycast(transform.position, forward, out hit, 30))
                     {
-                        enemy.GetComponent<GhostFollow>().TakeDamage();                        
+                        GameObject enemy = hit.collider.gameObject;
+                        if (enemy.tag == "Enemy")
+                        {
+                            enemy.GetComponent<GhostFollow>().TakeDamage();
+                        }
                     }
                 }
             }
