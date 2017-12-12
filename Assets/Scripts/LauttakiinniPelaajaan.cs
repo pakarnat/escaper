@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LauttakiinniPelaajaan : MonoBehaviour {
-    public GameObject player;
-    public Transform platform;
+    public GameObject player; //pelaaja
+    public Transform platform; //alusta johonka pelaaja kiinnitetään 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            Debug.Log("osuma");
-            player.transform.SetParent(platform);
+            player.transform.SetParent(platform); //pelaajan siirretään alustan lapseksi
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other) //pelaajan hypättyä alustasta irrotetaan pelaa alustasta
     {
-        player.transform.parent = null;
+        player.transform.parent = null; //pelaajalla ei ole isäntää
     }
 }

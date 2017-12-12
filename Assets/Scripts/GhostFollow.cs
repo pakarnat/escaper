@@ -5,7 +5,7 @@ using UnityEngine;
 public class GhostFollow : MonoBehaviour {
 
    
-    public int MoveSpeed = 4;
+    public int MoveSpeed = 4; // kummituksen nopeus
     int MaxDist = 10;
     int MinDist = 5;
 
@@ -36,7 +36,7 @@ public class GhostFollow : MonoBehaviour {
 
             if (Vector3.Distance(transform.position, Player.position) <= MaxDist)
             {
-                //Here Call any function U want Like Shoot at here or something
+                
             }
 
         }
