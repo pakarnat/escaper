@@ -8,6 +8,7 @@ public class GhostFollow : MonoBehaviour {
     public int MoveSpeed = 4; // kummituksen nopeus
     int MaxDist = 10;
     int MinDist = 5;
+    bool alive = true;
 
     [SerializeField]
     private float health = 10;
@@ -40,9 +41,9 @@ public class GhostFollow : MonoBehaviour {
             }
 
         }
-        if(this.health <= 0)
+        if(this.health <= 0 && alive == true)
         {
-            this.gameObject.GetComponent<Collider>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;            
             Die();
         }
         
@@ -52,6 +53,7 @@ public class GhostFollow : MonoBehaviour {
 
     private void Die()
     {
+        alive = false;
         this.gameObject.GetComponent<ParticleSystem>().Play();
         Destroy(this.gameObject, 1);
         EnemySpawn.killedEnemies++; // Kun vihollisia on tapettu 15, pudotetaan avain jolla aukeaa majakka
