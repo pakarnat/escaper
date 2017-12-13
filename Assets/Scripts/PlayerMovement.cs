@@ -40,6 +40,9 @@ public class PlayerMovement : MonoBehaviour {
     private float vertVelocity;
     public float jumpVelocity = 20f;
 
+    //SEver
+
+
     [SerializeField]
     doorscipt endDoor;
     
