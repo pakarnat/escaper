@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class doorscipt : MonoBehaviour {
 
@@ -9,35 +10,40 @@ public class doorscipt : MonoBehaviour {
 
     public bool open;
     public bool close;
-   
+    [SerializeField]
+    private GameObject RescueBoat;
+    [SerializeField]
+    int BoatSpeed;
+    public bool end = false;
+    private bool played = false;
+    [SerializeField]
+    private GameObject Majakanvalo;
+    [SerializeField]
+    private int RotationSpeed;
 
+    public Camera mainCamera;
+    public Camera itemCamera;
+    public Camera EndCamera;
+    public Image crosshair;
 
+    
     void Update()
     {
-            /*if (close)
-            {
-               
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        open = true;
-                        close = false;
-                    }
-            
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    close = true;
-                    open = false;
-                }
-            }*/
+        if (end)
+        {
+            EndGame();
+        }
    
 
         if (open)
         {
             var newRot = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0.0f, 130.0f, 0.0f), Time.deltaTime * 200);
             transform.rotation = newRot;
+            end = true;
+            EndCamera.enabled = true;
+            mainCamera.enabled = itemCamera.enabled = false;
+            crosshair.enabled = false;
+
         }
         else
         {
@@ -47,5 +53,17 @@ public class doorscipt : MonoBehaviour {
             var newRot = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0.0f, 45.0f, 0.0f), Time.deltaTime * 200);
             transform.rotation = newRot;
         }
+        if(open && !played)
+        {
+            EndCamera.GetComponent<Animation>().Play();
+            played = true;
+        }
+    }
+
+    void EndGame()
+    {        
+        RescueBoat.transform.position += RescueBoat.transform.forward * BoatSpeed * Time.deltaTime;
+        Majakanvalo.GetComponentInChildren<Lighthouse>().EnableLights();        
+        Majakanvalo.transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime); 
     }
 }
