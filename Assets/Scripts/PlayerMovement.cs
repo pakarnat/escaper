@@ -327,7 +327,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             obj.GetComponent<walldoor>().open = !obj.GetComponent<walldoor>().open;
         }
-        if (obj.tag == "LightHouseDoor")
+        if (obj.tag == "LightHouseDoor" && (_inventoryDetails.GetItem("L_Key").GetComponent<Item>().Name == "L_Key"))
         {
             obj.GetComponent<doorscipt>().open = !obj.GetComponent<doorscipt>().open;
         }        
