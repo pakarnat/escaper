@@ -64,6 +64,6 @@ public class doorscipt : MonoBehaviour {
     {        
         RescueBoat.transform.position += RescueBoat.transform.forward * BoatSpeed * Time.deltaTime;
         Majakanvalo.GetComponentInChildren<Lighthouse>().EnableLights();        
-        Majakanvalo.transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime); 
+        Majakanvalo.transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime);
     }
 }
