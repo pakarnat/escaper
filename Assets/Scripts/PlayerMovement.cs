@@ -39,6 +39,9 @@ public class PlayerMovement : MonoBehaviour {
 
     private float vertVelocity;
     public float jumpVelocity = 20f;
+
+    [SerializeField]
+    doorscipt endDoor;
     
 
     // Use this for initialization
@@ -57,11 +60,15 @@ public class PlayerMovement : MonoBehaviour {
     void Update () {
 
         itemLayerMask = LayerMask.GetMask("Item");
-        interactableObjectLayerMask = LayerMask.GetMask("InteractableObject");       
-                               
-        Movement(); 
+        interactableObjectLayerMask = LayerMask.GetMask("InteractableObject");
 
-        KeyController();                      
+        if (!endDoor.end)
+        {
+            Movement();
+
+            KeyController();
+        }
+        
     }
 
     private void FixedUpdate()

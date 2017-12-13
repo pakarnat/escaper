@@ -9,7 +9,7 @@ public class EnemySpawn : MonoBehaviour
     public float spawnTime = 1f;            // Mitenkä pitkä väli vihollisien spawnien välissä.
     public Transform spawnPoints;         // Mistä kohteesta viholliset spawnaavat.
     AudioSource thunder;
-    public static int killedEnemies = 0;
+    public static int killedEnemies = 0;    
 
     void Start()
     {
@@ -31,19 +31,19 @@ public class EnemySpawn : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            CancelInvoke("Spawn");
+            CancelInvoke("Spawn");           
         }
     }
 
     void Spawn()
     {
-            float spawnPointX = Random.Range(-500, 500); // random x arvo
-            float spawnPointY = Random.Range(50, 300); // random y arvo
-            float spawnPointZ = Random.Range(-500, 500); //random z arvo
-            //spawnPosition arvo on spawnPoints sen hetkinen arvo plus sattuman varainen arvon lisäys yläpuolella olevien random muuttujien arvon mukaan
-            Vector3 spawnPosition = new Vector3(spawnPointX + spawnPoints.transform.position.x, spawnPointY + spawnPoints.transform.position.y, spawnPointZ + spawnPoints.transform.position.z); 
-            Instantiate(enemy, spawnPosition, enemy.transform.rotation); // spawnataan uusi vihollinen spawnPosition arvoon
-    }
+        float spawnPointX = Random.Range(-500, 500); // random x arvo
+        float spawnPointY = Random.Range(50, 300); // random y arvo
+        float spawnPointZ = Random.Range(-500, 500); //random z arvo
+                                                     //spawnPosition arvo on spawnPoints sen hetkinen arvo plus sattuman varainen arvon lisäys yläpuolella olevien random muuttujien arvon mukaan
+        Vector3 spawnPosition = new Vector3(spawnPointX + spawnPoints.transform.position.x, spawnPointY + spawnPoints.transform.position.y, spawnPointZ + spawnPoints.transform.position.z);
+        Instantiate(enemy, spawnPosition, enemy.transform.rotation); // spawnataan uusi vihollinen spawnPosition arvoon        
+    }  
     
 }
 
