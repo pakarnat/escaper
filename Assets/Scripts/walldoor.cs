@@ -9,8 +9,7 @@ public class walldoor : MonoBehaviour {
 
     public bool open = false;
     //public bool close =true;
-    public Transform target;
-    public AudioClip ovi_auki;
+    public Transform target;    
     public AudioSource source;
     public bool hasplayed = false;
     void Awake()

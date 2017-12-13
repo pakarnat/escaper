@@ -11,6 +11,8 @@ public class GameEnding : MonoBehaviour {
     {
         if (boatCol.tag == "RescueBoat")
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             SceneManager.LoadScene("mainmenu"); //palataan alkunäyttöön
         }
 

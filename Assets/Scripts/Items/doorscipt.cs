@@ -25,6 +25,8 @@ public class doorscipt : MonoBehaviour {
     public Camera itemCamera;
     public Camera EndCamera;
     public Image crosshair;
+    public GameObject hintView;
+    public GameObject Player;
 
     
     void Update()
@@ -42,8 +44,7 @@ public class doorscipt : MonoBehaviour {
             end = true;
             EndCamera.enabled = true;
             mainCamera.enabled = itemCamera.enabled = false;
-            crosshair.enabled = false;
-
+            crosshair.enabled = false;            
         }
         else
         {
@@ -55,15 +56,17 @@ public class doorscipt : MonoBehaviour {
         }
         if(open && !played)
         {
+            Player.SetActive(false);
+            hintView.SetActive(false);
             EndCamera.GetComponent<Animation>().Play();
+            Majakanvalo.GetComponentInChildren<Lighthouse>().EnableLights();
             played = true;
         }
     }
 
     void EndGame()
     {        
-        RescueBoat.transform.position += RescueBoat.transform.forward * BoatSpeed * Time.deltaTime;
-        Majakanvalo.GetComponentInChildren<Lighthouse>().EnableLights();        
+        RescueBoat.transform.position += RescueBoat.transform.forward * BoatSpeed * Time.deltaTime;                
         Majakanvalo.transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime);
     }
 }
