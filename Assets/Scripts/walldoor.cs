@@ -10,6 +10,15 @@ public class walldoor : MonoBehaviour {
     public bool open = false;
     //public bool close =true;
     public Transform target;
+    public AudioClip ovi_auki;
+    public AudioSource source;
+    public bool hasplayed = false;
+    void Awake()
+    {
+
+        source = GetComponent<AudioSource>();
+
+    }
 
 
     void Update()    {
@@ -20,10 +29,19 @@ public class walldoor : MonoBehaviour {
         {            
             Quaternion q = Quaternion.Euler(0, 45, 0);            
             rot = Quaternion.RotateTowards(transform.rotation, q, Time.deltaTime * 20);
+            if (!source.isPlaying && hasplayed == false)
+            {
+                source.Play();
+                Debug.Log("OVI AUKI");
+                hasplayed = true;
+            }
+            
+            
+
         }
         else
         {
-            
+            hasplayed = false;
             Quaternion q = Quaternion.Euler(0, 0, 0);
             rot = Quaternion.RotateTowards(transform.rotation, q, Time.deltaTime * 20);
             
