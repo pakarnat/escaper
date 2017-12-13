@@ -41,11 +41,11 @@ public class EnemySpawn : MonoBehaviour
     }
     void valopaalle()
     {
-        sun.intensity = 50f;
+        sun.intensity = 1f;
     }
     void valopois()
     {
-        sun.intensity = 0.3f;
+        sun.intensity = 0f;
     }
 
     void Spawn()
