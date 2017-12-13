@@ -40,10 +40,23 @@ public class PlayerMovement : MonoBehaviour {
     private float vertVelocity;
     public float jumpVelocity = 20f;
 
+    //SEverin
+    public AudioClip kavelyaani;
+
+    public AudioSource source;
+   // public bool hasplayed = false;
+
+    
     [SerializeField]
     doorscipt endDoor;
-    
 
+    void Awake()
+    {
+
+        source = GetComponent<AudioSource>();
+
+    }
+    //SEverin
     // Use this for initialization
     void Start () {
 
@@ -62,13 +75,37 @@ public class PlayerMovement : MonoBehaviour {
         itemLayerMask = LayerMask.GetMask("Item");
         interactableObjectLayerMask = LayerMask.GetMask("InteractableObject");
 
+        
+
         if (!endDoor.end)
         {
             Movement();
 
             KeyController();
         }
-        
+
+        //testiä
+        if (Input.GetAxis("Vertical") > 0 || Input.GetAxis("Vertical") < 0)
+        {
+            //Debug.Log("Liikkuu vertical");
+            if (!source.isPlaying)
+            {
+                source.Play();
+              //  Debug.Log("SOIttaa");
+            }
+        }
+        if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Horizontal") < 0)
+        {
+           // Debug.Log("Liikkuu Horizontal");
+            if (!source.isPlaying)
+            {
+                source.Play();
+                //Debug.Log("SOIttaa");
+            }
+        }
+
+        //testiä
+
     }
 
     private void FixedUpdate()
@@ -81,6 +118,10 @@ public class PlayerMovement : MonoBehaviour {
     {
         moveFB = Input.GetAxis("Vertical") * speed;
         moveLR = Input.GetAxis("Horizontal") * speed;
+
+       
+
+
 
         rotX = Input.GetAxis("Mouse X") * sens;
         rotY -= Input.GetAxis("Mouse Y") * sens;
@@ -96,6 +137,8 @@ public class PlayerMovement : MonoBehaviour {
         movement = transform.rotation * movement;
 
         player.Move(movement * Time.deltaTime);
+
+        
 
     }
 
@@ -284,7 +327,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             obj.GetComponent<walldoor>().open = !obj.GetComponent<walldoor>().open;
         }
-        if (obj.tag == "LightHouseDoor")
+        if (obj.tag == "LightHouseDoor" && (_inventoryDetails.GetItem("L_Key").GetComponent<Item>().Name == "L_Key"))
         {
             obj.GetComponent<doorscipt>().open = !obj.GetComponent<doorscipt>().open;
         }        

@@ -25,8 +25,22 @@ public class doorscipt : MonoBehaviour {
     public Camera itemCamera;
     public Camera EndCamera;
     public Image crosshair;
+    public GameObject hintView;
+    public GameObject Player;
 
-    
+    //seven
+    public AudioClip ovi_auki;
+
+    public AudioSource source;
+    public bool hasplayed = false;
+
+    void Awake()
+    {
+
+        source = GetComponent<AudioSource>();
+
+    }
+    //seven
     void Update()
     {
         if (end)
@@ -43,11 +57,20 @@ public class doorscipt : MonoBehaviour {
             EndCamera.enabled = true;
             mainCamera.enabled = itemCamera.enabled = false;
             crosshair.enabled = false;
+            //seven
+            if (!source.isPlaying && hasplayed == false)
+            {
+                source.Play();
+                // Debug.Log("OVI AUKI");
+                hasplayed = true;
+            }
+            //seven
+
 
         }
         else
         {
-            
+            hasplayed = false;//jotta toimii uudelleen
 
 
             var newRot = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0.0f, 45.0f, 0.0f), Time.deltaTime * 200);
@@ -55,15 +78,17 @@ public class doorscipt : MonoBehaviour {
         }
         if(open && !played)
         {
+            Player.SetActive(false);
+            hintView.SetActive(false);
             EndCamera.GetComponent<Animation>().Play();
+            Majakanvalo.GetComponentInChildren<Lighthouse>().EnableLights();
             played = true;
         }
     }
 
     void EndGame()
     {        
-        RescueBoat.transform.position += RescueBoat.transform.forward * BoatSpeed * Time.deltaTime;
-        Majakanvalo.GetComponentInChildren<Lighthouse>().EnableLights();        
-        Majakanvalo.transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime); 
+        RescueBoat.transform.position += RescueBoat.transform.forward * BoatSpeed * Time.deltaTime;                
+        Majakanvalo.transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime);
     }
 }

@@ -7,11 +7,6 @@ public class ForestEntrance : MonoBehaviour {
     public GameObject Player;
     public MeshCollider invWall;
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
     private void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Player")

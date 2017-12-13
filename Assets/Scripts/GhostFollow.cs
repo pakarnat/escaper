@@ -9,6 +9,7 @@ public class GhostFollow : MonoBehaviour {
     int MaxDist = 10;
     int MinDist = 5;
     bool alive = true;
+    public GameObject majakanAvain;
 
     [SerializeField]
     private float health = 10;
@@ -58,9 +59,9 @@ public class GhostFollow : MonoBehaviour {
         Destroy(this.gameObject, 1);
         EnemySpawn.killedEnemies++; // Kun vihollisia on tapettu 15, pudotetaan avain jolla aukeaa majakka
 
-        if (EnemySpawn.killedEnemies >= 15)
+        if (EnemySpawn.killedEnemies <= 15)
         {
-            Debug.Log("Nyt on tapettu 15, tiputetaan avain");
+            Instantiate(majakanAvain, this.transform.position, this.transform.rotation);            
             CancelInvoke("Spawn");
         }
     }
