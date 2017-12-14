@@ -27,6 +27,7 @@ public class FlashLight : MonoBehaviour
         {
             ItemCamera = GetComponentInParent<Camera>();
             normalMask = ItemCamera.cullingMask;
+       
             if (Input.GetMouseButtonDown(0))
             {
                 if (currentLight.enabled == true)
@@ -134,7 +135,7 @@ public class FlashLight : MonoBehaviour
     void GreenLightOff()
     {
         currentLight.enabled = false;
-        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster")));
+        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster") | (1 << LayerMask.NameToLayer("Minimap"))));
     }
     void RedLightOn()
     {
@@ -146,20 +147,20 @@ public class FlashLight : MonoBehaviour
     void RedLightOff()
     {
         currentLight.enabled = false;
-        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster")));
+        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster") | (1 << LayerMask.NameToLayer("Minimap"))));
     }
     void WhiteLightOn()
     {
         greenLight.enabled = redLight.enabled = false;        
         currentLight = whiteLight;
         currentLight.enabled = true;
-        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster")));
+        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster") | (1 << LayerMask.NameToLayer("Minimap"))));
     }
     void WhiteLightOff()
     {
         currentLight.enabled = false;
         whiteLight.enabled = false;
-        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster")));
+        ItemCamera.cullingMask = ~(1 << LayerMask.NameToLayer("RedEaster") | (1 << LayerMask.NameToLayer("GreenEaster") | (1 << LayerMask.NameToLayer("Minimap"))));
     }
     
 }
