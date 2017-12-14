@@ -59,7 +59,7 @@ public class GhostFollow : MonoBehaviour {
         Destroy(this.gameObject, 1);
         EnemySpawn.killedEnemies++; // Kun vihollisia on tapettu 15, pudotetaan avain jolla aukeaa majakka
 
-        if (EnemySpawn.killedEnemies <= 15)
+        if (EnemySpawn.killedEnemies >= 15)
         {
             Instantiate(majakanAvain, this.transform.position, this.transform.rotation);            
             CancelInvoke("Spawn");
